@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+
+    <script src="scripts/bootstrap.min.js"></script>
+
+
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            border: 3px solid red;
+            display: none;
+            position: relative;
+        }
+        .bold{
+            font-weight:bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Test your reactions!</h1>
+
+    <p>Click on the boxes and circles as quickly as you can!</p>
+
+    <p class="bold">Your time:<span id="time">0</span></p>
+     
+    <div id="box"></div>  
+
+        
+
+    <script type="text/javascript">
+
+        function getRandomColor() {
+            var letters = '01234456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.round(Math.random() * 15)];
+            }
+            return color;
+        }
+
+       
+
+
+
+        var clickedTime;
+        var createdTime;
+        var reactionTime;
+
+        function makeBox() {
+
+            //makes box disappear randomly//
+            var time = Math.random();
+
+            time = time * 5000;
+
+            setTimeout(function () {
+
+                if (Math.random() > 0.5) {
+
+                    document.getElementById("box").style.borderRadius = "100px";
+                    document.getElementById("box").style.height = "100px";
+                    document.getElementById("box").style.width = "100px";
+
+                }
+                else {
+
+                    document.getElementById("box").style.borderRadius = "0";
+                    document.getElementById("box").style.height = "200px";
+                    document.getElementById("box").style.width = "200px";
+                }
+
+                //Randomly Positions Boxes and Circles//
+                var top = Math.random();
+
+                top = top * 300;
+
+                var left = Math.random();
+
+                left = left * 500;
+
+                var randomShape = Math.random() * 3;
+
+
+
+
+                document.getElementById("box").style.maxHeight = randomShape;
+                document.getElementById("box").style.top = top + "px";
+                document.getElementById("box").style.left = left + "px";
+
+                document.getElementById("box").style.backgroundColor = getRandomColor();
+
+                document.getElementById("box").style.display = "block";
+
+
+                createdTime = Date.now();
+
+            }, time);
+        }
+
+        //makes box appear//
+        document.getElementById("box").onclick = function () {
+
+            clickedTime = Date.now();
+
+            reactionTime = (clickedTime - createdTime) / 1000;
+
+            document.getElementById("time").innerHTML = reactionTime;
+
+            this.style.display = "none";
+
+            makeBox();
+
+        }
+        makeBox();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
